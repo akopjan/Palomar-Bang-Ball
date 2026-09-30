@@ -1,0 +1,4 @@
+.lake/
+.cache/
+.DS_Store
+*.bak

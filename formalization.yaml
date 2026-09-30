@@ -1,0 +1,157 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
+version: "v0.4"
+
+project:
+  name: "A Short Proof of Ball's Plank Theorem"
+  description: >-
+    Formalization in Lean 4 of the paper 'A Short Proof of Ball's Plank Theorem'
+    by Arseniy Akopyan and Alexander Polyanskii (arXiv:2609.36163). The paper
+    gives a short proof of Keith Ball's 1991 theorem: if a centrally symmetric convex
+    body in R^d is covered by finitely many planks, the sum of their relative widths
+    with respect to the body is at least 1. The proof is based on a simple proof of a core
+    theorem about linear functionals on R^n and an orthonormal basis. It also yields
+    a short proof of Davenport's problem for centrally symmetric convex bodies (interior-disjointness
+    of a homothet K/(n+1) from n hyperplanes).
+  authors:
+    - "Arseniy Akopyan"
+  license: "Apache-2.0"
+  responsible_maintainers:
+    - "Arseniy Akopyan"
+
+classification:
+  arxiv:
+    - "math.MG"
+  msc2020:
+    - "52A20"
+    - "52C17"
+    - "52A38"
+    - "52A40"
+
+sources:
+  - title: "A Short Proof of Ball's Plank Theorem"
+    authors:
+      - "Arseniy Akopyan"
+      - "Alexander Polyanskii"
+    id: "https://arxiv.org/abs/2609.36163"
+    type: "paper"
+    location: "arXiv:2609.36163 [math.MG]"
+    relationship: "formalizes"
+    author_endorsement: "participated"
+    note: "Formalization of the paper by Arseniy Akopyan and Alexander Polyanskii (https://arxiv.org/abs/2609.36163)."
+  - title: "The plank problem for symmetric bodies"
+    authors:
+      - "Keith Ball"
+    id: "https://doi.org/10.1007/BF01245089"
+    type: "article"
+    location: "Invent. Math. 104 (1991), 535–543"
+    relationship: "background"
+    author_endorsement: "not-contacted"
+  - title: "A solution of the 'plank problem'"
+    authors:
+      - "Thøger Bang"
+    id: "https://doi.org/10.1090/S0002-9939-1951-0044141-0"
+    type: "article"
+    location: "Proc. Amer. Math. Soc. 2 (1951), 990–993"
+    relationship: "background"
+    author_endorsement: "not-contacted"
+
+status:
+  scope: >-
+    Formalizes Keith Ball's plank theorem for centrally symmetric convex bodies
+    (PlankProblem.ball_plank_theorem), the core theorem for linear functionals and
+    shifted planks through an orthonormal basis (PlankProblem.core_theorem), and
+    Davenport's problem for centrally symmetric bodies on the existence of a homothet
+    K/(n+1) whose interior is disjoint from n hyperplanes (PlankProblem.davenport_conjecture).
+    Bang's affine plank conjecture for general (not necessarily centrally symmetric)
+    convex bodies is formulated as an open proposition (PlankProblem.BangPlankConjecture)
+    without proof, as it remains an open problem in convex geometry.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms:
+    - "propext"
+    - "Quot.sound"
+    - "Classical.choice"
+  main_results:
+    - declaration: "PlankProblem.ball_plank_theorem"
+      file: "Solution.lean"
+      sorry_count: 0
+      axioms:
+        - "propext"
+        - "Quot.sound"
+        - "Classical.choice"
+      comparator_config: "comparator.json"
+    - declaration: "PlankProblem.core_theorem"
+      file: "Solution.lean"
+      sorry_count: 0
+      axioms:
+        - "propext"
+        - "Quot.sound"
+        - "Classical.choice"
+      comparator_config: "comparator.json"
+    - declaration: "PlankProblem.davenport_conjecture"
+      file: "Solution.lean"
+      sorry_count: 0
+      axioms:
+        - "propext"
+        - "Quot.sound"
+        - "Classical.choice"
+      comparator_config: "comparator.json"
+
+automation:
+  methods:
+    - method: "agent"
+      models:
+        - "ChatGPT"
+        - "Aristotle"
+        - "Gemini"
+      framework: "Aristotle (Harmonic) / OpenAI ChatGPT / Google DeepMind Gemini"
+      tool_setup: >-
+        Formalized by Arseniy Akopyan using an AI-assisted workflow: ChatGPT,
+        Aristotle (Harmonic), Gemini.
+      prompting_notes: >-
+        Mathematical ideas of the proof are due to the authors (Arseniy Akopyan
+        and Alexander Polyanskii). The formalization was executed and verified by
+        Arseniy Akopyan with assistance from ChatGPT, Aristotle, and Gemini.
+  notes: >-
+    Formalized by Arseniy Akopyan with assistance from ChatGPT, Aristotle (Harmonic),
+    and Gemini. All proofs are machine-checked in Lean 4.35.0-rc2 and depend strictly on
+    the standard Lean axioms.
+
+fidelity:
+  divergences: >-
+    The formalization faithfully follows the arguments of the paper. Minor formal
+    adaptations: the dimension n is passed explicitly to Plank n; homothets are
+    expressed using vector addition t +ᵥ r • K; IsCentrallySymmetric K is explicitly
+    included as a hypothesis in ball_plank_theorem and davenport_conjecture;
+    davenport_conjecture assumes functionals f i are nonzero; and Bang's open
+    conjecture is stated as a definition of type Prop.
+
+review:
+  status: "author-verified"
+  reviewers:
+    - "Arseniy Akopyan"
+  notes: "Statement and proof audited against the paper. Typechecked in Lean 4.35.0-rc2 with zero sorries and only the three standard axioms (propext, Quot.sound, Classical.choice)."
+
+alignment:
+  namespace: "PlankProblem"
+  statements:
+    - source: "Ball's Plank Theorem (Abstract / Theorem 1)"
+      lean: "PlankProblem.ball_plank_theorem"
+      module: "Solution"
+      status: "proved"
+      note: "If a centrally symmetric convex body K ⊆ ℝⁿ is covered by finitely many planks, the sum of their relative widths with respect to K is at least 1."
+    - source: "The core theorem (page 1)"
+      lean: "PlankProblem.core_theorem"
+      module: "Solution"
+      status: "proved"
+      note: "Given an orthonormal basis X of ℝⁿ and linear functionals with ℓᵢ(xᵢ) = 1, there exists z with ‖z‖ ≤ √n outside shifted planks |ℓᵢ(z) - cᵢ| ≥ 1."
+    - source: "Davenport's problem (extension discussed in paper)"
+      lean: "PlankProblem.davenport_conjecture"
+      module: "Solution"
+      status: "proved"
+      note: "Existence of a homothet of ratio 1/(n+1) of a centrally symmetric convex body K whose interior is disjoint from n given affine hyperplanes."
+
+acknowledgements: >-
+  The authors acknowledge the use of ChatGPT, Aristotle (Harmonic), and Gemini
+  for formalization and verification assistance. Alexander Polyanskii is supported
+  by the NSF grant DMS 2349045.
